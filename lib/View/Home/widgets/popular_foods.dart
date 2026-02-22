@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:food_delivery_app/View/Food_Detail-Screen/foods_detail_screen.dart';
+import 'package:food_delivery_app/view/Food_Detail-Screen/foods_detail_screen.dart';
 import 'package:food_delivery_app/models/food.dart';
 import 'package:food_delivery_app/ViewModel/popular_foods_provider.dart';
 import 'package:food_delivery_app/theme.dart';

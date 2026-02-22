@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery_app/View/topmenuedetail.dart';
+import 'package:food_delivery_app/view/topmenuedetail.dart';
 import 'package:food_delivery_app/models/topmenuefoods.dart';
 import 'package:food_delivery_app/theme.dart';
 

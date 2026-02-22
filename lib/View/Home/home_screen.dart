@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery_app/View/Home/widgets/best_food.dart';
-import 'package:food_delivery_app/View/Home/widgets/search_widget.dart';
-import 'package:food_delivery_app/View/Home/widgets/top_menu_foods.dart';
-import 'package:food_delivery_app/View/Home/widgets/popular_foods.dart';
+import 'package:food_delivery_app/view/Home/widgets/best_food.dart';
+import 'package:food_delivery_app/view/Home/widgets/search_widget.dart';
+import 'package:food_delivery_app/view/Home/widgets/top_menu_foods.dart';
+import 'package:food_delivery_app/view/Home/widgets/popular_foods.dart';
 import 'package:food_delivery_app/theme.dart';
 
 class HomeScreen extends StatefulWidget {

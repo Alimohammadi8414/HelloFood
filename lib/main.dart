@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery_app/ViewModel/add_to_cart_provider.dart';
+import 'package:food_delivery_app/viewmodel/add_to_cart_provider.dart';
 import 'package:food_delivery_app/models/food.dart';
-import 'package:food_delivery_app/ViewModel/popular_foods_provider.dart';
+import 'package:food_delivery_app/viewmodel/popular_foods_provider.dart';
 import 'package:food_delivery_app/root_screen.dart';
 import 'package:food_delivery_app/theme.dart';
 import 'package:hive_flutter/hive_flutter.dart';

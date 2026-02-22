@@ -52,14 +52,13 @@ class AddToCartProvider extends ChangeNotifier {
 
   // Decreament the Nomber Of Food
   void decreament(Food food) async {
-    // if (cartbox.containsKey(food.name)) {
-    //   await cartbox.delete(food.name);
-    food.count--;
-    await cartbox.put(food.name, food);
-    // } else {
-    //   await cartbox.delete(food.name);
-
-    // }
+    if (cartbox.containsKey(food.name)) {
+      await cartbox.delete(food.name);
+      food.count--;
+      await cartbox.put(food.name, food);
+    } else {
+      await cartbox.delete(food.name);
+    }
 
     notifyListeners();
   }
