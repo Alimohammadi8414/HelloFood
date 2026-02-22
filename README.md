@@ -1,16 +1,6 @@
 # food_delivery_app
 
-A new Flutter project.
+I have developed this app in the a time that Internet was cut because of Protesting and Struggles amonge people and the government of I.R.Iran. 
 
-## Getting Started
+This app works offline and all featuers work with Hive Database including Baskcet Screen Items. 
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
