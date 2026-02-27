@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:food_delivery_app/models/food.dart';
+import 'package:hellofood/models/food.dart';
 import 'package:hive/hive.dart';
 
 class AddToCartProvider extends ChangeNotifier {

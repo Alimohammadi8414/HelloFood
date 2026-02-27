@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery_app/view/account_Screen/account_screen.dart';
-import 'package:food_delivery_app/view/cart_screen/cart_screen.dart';
-import 'package:food_delivery_app/view/Home/home_screen.dart';
-import 'package:food_delivery_app/view/Near_By_Screen/nearby_screen.dart';
+import 'package:hellofood/view/account_Screen/account_screen.dart';
+import 'package:hellofood/view/cart_screen/cart_screen.dart';
+import 'package:hellofood/view/Home/home_screen.dart';
+import 'package:hellofood/view/Near_By_Screen/nearby_screen.dart';
 
 class RootScreen extends StatefulWidget {
   const RootScreen({super.key});

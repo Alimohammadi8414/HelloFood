@@ -1,6 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:food_delivery_app/models/food.dart';
+import 'package:hellofood/models/food.dart';
 
 class BestFood extends StatelessWidget {
   const BestFood({super.key});

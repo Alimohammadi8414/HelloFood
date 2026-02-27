@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery_app/view/topmenuedetail.dart';
-import 'package:food_delivery_app/models/topmenuefoods.dart';
-import 'package:food_delivery_app/theme.dart';
+import 'package:hellofood/view/topmenuedetail.dart';
+import 'package:hellofood/models/topmenuefoods.dart';
+import 'package:hellofood/theme.dart';
 
 class TopMenuFoods extends StatelessWidget {
   const TopMenuFoods({super.key});

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery_app/theme.dart';
+import 'package:hellofood/theme.dart';
 
 class SearchWidget extends StatelessWidget {
   const SearchWidget({super.key});

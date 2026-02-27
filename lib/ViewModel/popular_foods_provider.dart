@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery_app/main.dart';
-import 'package:food_delivery_app/models/food.dart';
-import 'package:food_delivery_app/theme.dart';
+import 'package:hellofood/main.dart';
+import 'package:hellofood/models/food.dart';
+import 'package:hellofood/theme.dart';
 import 'package:hive/hive.dart';
 
 var box = Hive.box<Food>('favorite_foods');

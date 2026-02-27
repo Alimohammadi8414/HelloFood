@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery_app/viewmodel/add_to_cart_provider.dart';
-import 'package:food_delivery_app/models/food.dart';
-import 'package:food_delivery_app/theme.dart';
+import 'package:hellofood/models/food.dart';
+import 'package:hellofood/theme.dart';
+import 'package:hellofood/viewmodel/add_to_cart_provider.dart';
 import 'package:provider/provider.dart';
 
 class FoodsDetailScreen extends StatefulWidget {

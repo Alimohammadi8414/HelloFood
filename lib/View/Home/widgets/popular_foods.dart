@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:food_delivery_app/view/Food_Detail-Screen/foods_detail_screen.dart';
-import 'package:food_delivery_app/models/food.dart';
-import 'package:food_delivery_app/viewmodel/popular_foods_provider.dart';
-import 'package:food_delivery_app/theme.dart';
+import 'package:hellofood/view/Food_Detail-Screen/foods_detail_screen.dart';
+import 'package:hellofood/models/food.dart';
+import 'package:hellofood/viewmodel/popular_foods_provider.dart';
+import 'package:hellofood/theme.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 import 'package:like_button/like_button.dart';

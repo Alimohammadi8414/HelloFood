@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery_app/viewmodel/add_to_cart_provider.dart';
-import 'package:food_delivery_app/theme.dart';
+import 'package:hellofood/theme.dart';
+import 'package:hellofood/viewmodel/add_to_cart_provider.dart';
 import 'package:provider/provider.dart';
 
 class CartScreen extends StatefulWidget {
@@ -110,7 +110,7 @@ class _CartScreenState extends State<CartScreen> {
                                           children: [
                                             // Decreament Botton
                                             IconButton(
-                                              onPressed: () async{
+                                              onPressed: () async {
                                                 if (cartfoods[index].count >
                                                     1) {
                                                   await value.decrement(
@@ -191,8 +191,7 @@ class _CartScreenState extends State<CartScreen> {
                                                             onPressed: () async {
                                                               await value
                                                                   .deletFromCart(
-                                                                    value
-                                                                        .cartfoods[index],
+                                                                    cartfoods[index],
                                                                   );
                                                               if (context
                                                                   .mounted) {
