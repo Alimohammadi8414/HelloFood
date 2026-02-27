@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery_app/ViewModel/add_to_cart_provider.dart';
+import 'package:food_delivery_app/viewmodel/add_to_cart_provider.dart';
 import 'package:food_delivery_app/models/food.dart';
 import 'package:food_delivery_app/theme.dart';
 import 'package:provider/provider.dart';
@@ -99,8 +99,8 @@ class AddButtonWidget extends StatelessWidget {
             );
           } else {
             return ElevatedButton(
-              onPressed: () {
-                value.addtocart(widget.food);
+              onPressed: () async {
+                await value.addTocart(widget.food);
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.lightRed,

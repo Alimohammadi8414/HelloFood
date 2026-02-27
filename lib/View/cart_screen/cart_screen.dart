@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery_app/ViewModel/add_to_cart_provider.dart';
+import 'package:food_delivery_app/viewmodel/add_to_cart_provider.dart';
 import 'package:food_delivery_app/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -110,10 +110,10 @@ class _CartScreenState extends State<CartScreen> {
                                           children: [
                                             // Decreament Botton
                                             IconButton(
-                                              onPressed: () {
+                                              onPressed: () async{
                                                 if (cartfoods[index].count >
                                                     1) {
-                                                  value.decreament(
+                                                  await value.decrement(
                                                     cartfoods[index],
                                                   );
                                                 } else if (cartfoods[index]
@@ -188,15 +188,18 @@ class _CartScreenState extends State<CartScreen> {
                                                             ),
                                                           ),
                                                           TextButton(
-                                                            onPressed: () {
-                                                              value.deletFromCart(
-                                                                value
-                                                                    .cartfoods[index],
-                                                              );
-
-                                                              Navigator.pop(
-                                                                context,
-                                                              );
+                                                            onPressed: () async {
+                                                              await value
+                                                                  .deletFromCart(
+                                                                    value
+                                                                        .cartfoods[index],
+                                                                  );
+                                                              if (context
+                                                                  .mounted) {
+                                                                Navigator.pop(
+                                                                  context,
+                                                                );
+                                                              }
                                                             },
                                                             child: Text(
                                                               'YES',
@@ -233,8 +236,8 @@ class _CartScreenState extends State<CartScreen> {
 
                                             // Increament Botton
                                             IconButton(
-                                              onPressed: () {
-                                                value.increament(
+                                              onPressed: () async {
+                                                await value.increment(
                                                   cartfoods[index],
                                                 );
                                               },
