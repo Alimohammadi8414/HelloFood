@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hellofood/view/topmenuedetail.dart';
-import 'package:hellofood/models/topmenuefoods.dart';
-import 'package:hellofood/theme.dart';
+import 'package:hellofood/model/topmenuefoods.dart';
+import 'package:hellofood/view/theme.dart';
 
 class TopMenuFoods extends StatelessWidget {
   const TopMenuFoods({super.key});
@@ -11,6 +11,7 @@ class TopMenuFoods extends StatelessWidget {
     final topfoods = TopMenuFoodsModel.topMenuFoods;
     return Container(
       decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
         gradient: LinearGradient(
           colors: [Color(0xFFFFE6E6), AppColors.backgroundWhit],
           begin: Alignment.topCenter,
@@ -49,8 +50,8 @@ class TopMenuFoods extends StatelessWidget {
                     height: 50,
                     width: 60,
                     decoration: BoxDecoration(
-                      color: AppColors.whit,
-                      borderRadius: BorderRadius.circular(4),
+                      color: AppColors.white,
+                      borderRadius: BorderRadius.circular(10),
                     ),
                     child: Image.asset(topfoods[index].image!),
                   ),

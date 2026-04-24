@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hellofood/models/food.dart';
-import 'package:hellofood/root_screen.dart';
-import 'package:hellofood/theme.dart';
+import 'package:hellofood/model/food_&_user.dart';
+import 'package:hellofood/view/root_screen.dart';
+import 'package:hellofood/view/theme.dart';
 import 'package:hellofood/viewmodel/add_to_cart_provider.dart';
 import 'package:hellofood/viewmodel/popular_foods_provider.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -14,8 +14,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   Hive.registerAdapter(FoodAdapter());
+  Hive.registerAdapter(UserAdapter());
   await Hive.openBox<Food>('favorite_foods');
-  // await Hive.deleteBoxFromDisk('cart_foods');
   await Hive.openBox<Food>('cart_foods');
 
   runApp(

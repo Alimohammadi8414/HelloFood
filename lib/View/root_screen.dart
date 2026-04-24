@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hellofood/view/account_Screen/account_screen.dart';
+import 'package:hellofood/view/account_screen/signing_screen.dart';
 import 'package:hellofood/view/cart_screen/cart_screen.dart';
-import 'package:hellofood/view/Home/home_screen.dart';
-import 'package:hellofood/view/Near_By_Screen/nearby_screen.dart';
+import 'package:hellofood/view/home/home_screen.dart';
+import 'package:hellofood/view/near_by_screen/nearby_screen.dart';
 
 class RootScreen extends StatefulWidget {
   const RootScreen({super.key});
@@ -31,7 +31,7 @@ class _RootScreenState extends State<RootScreen> {
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'HOME'),
           BottomNavigationBarItem(icon: Icon(Icons.near_me), label: 'NEAR BY'),
           BottomNavigationBarItem(
-            icon: Icon(Icons.card_giftcard),
+            icon: Icon(Icons.shopping_bag_rounded),
             label: 'CART',
           ),
           BottomNavigationBarItem(
@@ -42,7 +42,7 @@ class _RootScreenState extends State<RootScreen> {
       ),
       body: IndexedStack(
         index: selectedindex,
-        children: [HomeScreen(), NearbyScreen(), CartScreen(), AccountScreen()],
+        children: [HomeScreen(), NearbyScreen(), CartScreen(), SignUpScreen()],
       ),
     );
   }

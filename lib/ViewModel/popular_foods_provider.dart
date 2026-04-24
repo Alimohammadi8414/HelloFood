@@ -1,56 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:hellofood/main.dart';
-import 'package:hellofood/models/food.dart';
-import 'package:hellofood/theme.dart';
+import 'package:hellofood/model/food_&_user.dart';
 import 'package:hive/hive.dart';
 
 var box = Hive.box<Food>('favorite_foods');
 
-Food food = Food();
-
 class Popularfoodsprovider extends ChangeNotifier {
-  addOrRemov(Food fooditem, BuildContext context) async {
-    if (box.containsKey(fooditem.name)) {
-      removeFromFavoritMessage(fooditem, context);
-      await box.delete(fooditem.name);
+  Future<void> addOrRemove(Food food, BuildContext context) async {
+    final newFood = food.copy();
+    if (box.containsKey(food.name)) {
+      await box.delete(food.name);
     } else {
-      addToFavoritMessage(fooditem, context);
-      await box.put(fooditem.name, fooditem);
+      addMessage(food, context);
+      await box.put(food.name, newFood);
     }
     notifyListeners();
   }
 }
 
-addToFavoritMessage(Food fooditem, BuildContext context) {
+// Add message when the food item is added to favorites
+addMessage(Food fooditem, BuildContext context) {
   messengerKey.currentState?.showSnackBar(
     SnackBar(
       duration: Duration(seconds: 2),
       behavior: SnackBarBehavior.floating,
       dismissDirection: DismissDirection.horizontal,
-      backgroundColor: Colors.green,
       content: Text(
-        '${fooditem.name} is added to favorit',
-        style: Theme.of(context).textTheme.bodyMedium,
+        textAlign: TextAlign.center,
+        '${fooditem.name} was added to favorites',
       ),
     ),
   );
 }
 
-removeFromFavoritMessage(Food fooditem, BuildContext context) {
-  messengerKey.currentState?.showSnackBar(
-    SnackBar(
-      hitTestBehavior: HitTestBehavior.opaque,
-      duration: Duration(seconds: 2),
-      behavior: SnackBarBehavior.floating,
-      dismissDirection: DismissDirection.horizontal,
-
-      backgroundColor: AppColors.lightRed,
-      content: Text(
-        '${fooditem.name} is removed from favorit',
-        style: Theme.of(
-          context,
-        ).textTheme.bodyMedium!.copyWith(color: AppColors.whit),
-      ),
-    ),
-  );
-}
+// Remove message when the food item is removed from favorites
+// removeMessage(Food fooditem, BuildContext context) {
+//   messengerKey.currentState?.showSnackBar(
+//     SnackBar(
+//       hitTestBehavior: HitTestBehavior.opaque,
+//       duration: Duration(seconds: 2),
+//       behavior: SnackBarBehavior.floating,
+//       dismissDirection: DismissDirection.horizontal,
+//       content: Text(
+//         textAlign: TextAlign.center,
+//         '${fooditem.name} is removed from favorites',
+//       ),
+//     ),
+//   );
+// }

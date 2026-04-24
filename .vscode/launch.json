@@ -5,18 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "food_delivery_app",
+            "name": "Hello Food",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "food_delivery_app (profile mode)",
+            "name": "Hello Food (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "food_delivery_app (release mode)",
+            "name": "Hello Food (release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"

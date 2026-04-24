@@ -3,15 +3,16 @@ import 'package:flutter/material.dart';
 class AppColors {
   static const lightRed = Color.fromARGB(255, 252, 32, 24); // قرمز
   static const gray = Color(0xFFBBBBBB); // خاکستری
-  static const whit = Color(0xFFFFFFFF); // سفید
+  static const white = Color(0xFFFFFFFF); // سفید
   static const heavyGray = Color(0xFF202124); // خاکستری تیره
   static const backgroundWhit = Color(0xFFF9F9F9); // پس‌زمینه روشن
+  static const green = Color(0xFF4CAF50); // سبز
 }
 
-final ThemeData apptheme =  ThemeData(
+final ThemeData apptheme = ThemeData(
   textSelectionTheme: TextSelectionThemeData(
     selectionHandleColor: AppColors.heavyGray,
-    cursorColor: AppColors.gray,
+    cursorColor: AppColors.heavyGray,
     selectionColor: AppColors.gray,
   ),
   colorScheme: ColorScheme(
@@ -19,7 +20,7 @@ final ThemeData apptheme =  ThemeData(
     secondary: AppColors.gray,
     surface: AppColors.backgroundWhit,
     error: Colors.red,
-    onPrimary: AppColors.whit,
+    onPrimary: AppColors.white,
     onSecondary: AppColors.heavyGray,
     onSurface: AppColors.heavyGray,
     onError: Colors.white,

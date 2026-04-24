@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hellofood/theme.dart';
-import 'package:hellofood/view/Home/widgets/best_food.dart';
-import 'package:hellofood/view/Home/widgets/popular_foods.dart';
-import 'package:hellofood/view/Home/widgets/search_widget.dart';
-import 'package:hellofood/view/Home/widgets/top_menu_foods.dart';
+import 'package:hellofood/view/home/widgets/best_food.dart';
+import 'package:hellofood/view/home/widgets/popular_foods.dart';
+import 'package:hellofood/view/home/widgets/popular_foods_title.dart';
+import 'package:hellofood/view/home/widgets/search_widget.dart';
+import 'package:hellofood/view/home/widgets/top_menu_foods.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -19,9 +19,10 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text(
           'What would you like to eat?',
-          style: Theme.of(
-            context,
-          ).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.w400),
+          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+            fontWeight: FontWeight.w400,
+            fontSize: 22,
+          ),
         ),
         actions: [
           IconButton(
@@ -30,23 +31,21 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: Padding(
-          padding: EdgeInsets.all(16.0),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SearchWidget(),
-              SizedBox(height: 10.0),
+              const SizedBox(height: 10.0),
               TopMenuFoods(),
               PopularFoodTitle(),
               PopularFoods(),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               BestFoodTitle(),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               BestFood(),
-              SizedBox(height: 20),
             ],
           ),
         ),
@@ -66,40 +65,6 @@ class BestFoodTitle extends StatelessWidget {
         fontWeight: FontWeight.w300,
         fontSize: 22,
       ),
-    );
-  }
-}
-
-class PopularFoodTitle extends StatelessWidget {
-  const PopularFoodTitle({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          'Popular Foods',
-          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-            fontWeight: FontWeight.w300,
-            fontSize: 22,
-          ),
-        ),
-        TextButton(
-          style: TextButton.styleFrom(
-            overlayColor: AppColors.heavyGray,
-            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          ),
-          onPressed: () {},
-          child: Text(
-            'See All',
-            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-              fontWeight: FontWeight.w400,
-              color: Colors.blueAccent,
-            ),
-          ),
-        ),
-      ],
     );
   }
 }

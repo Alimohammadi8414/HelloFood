@@ -1,6 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:hellofood/models/food.dart';
+import 'package:hellofood/model/food_&_user.dart';
 
 class BestFood extends StatelessWidget {
   const BestFood({super.key});
@@ -8,7 +8,7 @@ class BestFood extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 190,
+      height:  190,
       width: MediaQuery.sizeOf(context).width,
       child: CarouselSlider.builder(
         itemCount: bestfoods.length,
@@ -20,11 +20,12 @@ class BestFood extends StatelessWidget {
         },
         options: CarouselOptions(
           autoPlay: true,
-          animateToClosest: false,
+          animateToClosest: true,
           enableInfiniteScroll: true,
           initialPage: 0,
           enlargeCenterPage: true,
-          viewportFraction: 0.8,
+          viewportFraction: 0.7,
+          enlargeFactor: 0.4,
         ),
       ),
     );

@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:hellofood/view/Food_Detail-Screen/foods_detail_screen.dart';
-import 'package:hellofood/models/food.dart';
+import 'package:hellofood/view/detail_screen/foods_detail_screen.dart';
+import 'package:hellofood/model/food_&_user.dart';
+import 'package:hellofood/viewmodel/add_to_cart_provider.dart';
 import 'package:hellofood/viewmodel/popular_foods_provider.dart';
-import 'package:hellofood/theme.dart';
+import 'package:hellofood/view/theme.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
-import 'package:like_button/like_button.dart';
 
 var box = Hive.box<Food>('favorite_foods');
+var cartbox = Hive.box<Food>('cart_foods');
+var foods = popularfoods;
 
 class PopularFoods extends StatefulWidget {
   const PopularFoods({super.key});
@@ -27,7 +29,7 @@ class _PopularFoodsState extends State<PopularFoods> {
         builder: (context, value, child) {
           return ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: popularfoods.length,
+            itemCount: foods.length,
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
@@ -35,7 +37,7 @@ class _PopularFoodsState extends State<PopularFoods> {
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return FoodsDetailScreen(food: popularfoods[index]);
+                        return FoodsDetailScreen(food: foods[index]);
                       },
                     ),
                   );
@@ -43,18 +45,18 @@ class _PopularFoodsState extends State<PopularFoods> {
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: AppColors.whit,
+                    color: AppColors.white,
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withValues(alpha: 0.1),
-                        blurRadius: 8,
+                        blurRadius: 10,
                         spreadRadius: 0,
                         blurStyle: BlurStyle.normal,
                       ),
                     ],
                   ),
-                  padding: EdgeInsets.fromLTRB(4.0, 4.0, 4.0, 15),
-                  margin: EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.fromLTRB(4.0, 4.0, 4.0, 15),
+                  margin: const EdgeInsets.all(8.0),
                   height: 230,
                   width: 190,
                   child: Column(
@@ -62,42 +64,81 @@ class _PopularFoodsState extends State<PopularFoods> {
                       Expanded(
                         child: Stack(
                           children: [
+                            //Image
                             Positioned(
-                              top: 3,
+                              top: 8,
                               left: 25,
-                              child: Image.asset(
-                                popularfoods[index].img!,
+                              child: Container(
                                 height: 130,
                                 width: 130,
+                                clipBehavior: Clip.antiAlias,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                ),
+
+                                child: Image.asset(
+                                  foods[index].img!,
+                                  fit: BoxFit.fitHeight,
+                                ),
                               ),
                             ),
-                            Positioned(
-                              top: 5,
-                              right: 5,
-                              child: LikeButton(
-                                isLiked: box.containsKey(
-                                  popularfoods[index].name,
-                                ),
-                                size: 18,
-                                onTap: (isLiked) async {
-                                  value.addOrRemov(
-                                    popularfoods[index],
-                                    context,
-                                  );
-
-                                  return null;
-                                },
-                              ),
+                            // Add Icon
+                            Consumer<AddToCartProvider>(
+                              builder: (context, value, child) {
+                                return Positioned(
+                                  top: -2,
+                                  right: -2,
+                                  child:
+                                      cartbox.containsKey(foods[index].name)
+                                          ? IconButton(
+                                            style: IconButton.styleFrom(
+                                              iconSize: 18,
+                                              visualDensity: VisualDensity(
+                                                horizontal: -2,
+                                                vertical: -2,
+                                              ),
+                                              backgroundColor: AppColors.gray
+                                                  .withValues(alpha: 0.3),
+                                            ),
+                                            onPressed: () {
+                                              value.deletFromCart(
+                                                context,
+                                                foods[index],
+                                                false,
+                                              );
+                                            },
+                                            icon: Icon(Icons.remove),
+                                          )
+                                          : IconButton(
+                                            style: IconButton.styleFrom(
+                                              iconSize: 18,
+                                              visualDensity: VisualDensity(
+                                                horizontal: -2,
+                                                vertical: -2,
+                                              ),
+                                              backgroundColor: AppColors.gray
+                                                  .withValues(alpha: 0.3),
+                                            ),
+                                            onPressed: () {
+                                              value.addTocart(
+                                                context,
+                                                foods[index],
+                                              );
+                                            },
+                                            icon: const Icon(Icons.add),
+                                          ),
+                                );
+                              },
                             ),
                           ],
                         ),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
                         children: [
+                          // Name of the food
                           Text(
-                            popularfoods[index].name!,
+                            foods[index].name!,
                             style: Theme.of(
                               context,
                             ).textTheme.bodyMedium!.copyWith(
@@ -105,13 +146,15 @@ class _PopularFoodsState extends State<PopularFoods> {
                               fontWeight: FontWeight.w300,
                             ),
                           ),
+
+                          // Navigation Icon
                           IconButton(
                             visualDensity: VisualDensity(
                               horizontal: -4,
                               vertical: -4,
                             ),
                             onPressed: () {},
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.near_me,
                               size: 20,
                               color: AppColors.lightRed,
@@ -121,15 +164,18 @@ class _PopularFoodsState extends State<PopularFoods> {
                       ),
                       Row(
                         children: [
+                          // Rate Number
                           Text(
-                            popularfoods[index].rate.toString(),
+                            foods[index].rate.toString(),
                             style: Theme.of(context).textTheme.bodySmall,
                           ),
-                          SizedBox(width: 2.0),
+                          const SizedBox(width: 2.0),
+
+                          // Rating Bar
                           RatingBarIndicator(
                             itemCount: 5,
                             itemSize: 10,
-                            rating: popularfoods[index].rate!,
+                            rating: foods[index].rate!,
                             itemBuilder: (BuildContext context, int index) {
                               return Icon(
                                 Icons.star,
@@ -137,16 +183,21 @@ class _PopularFoodsState extends State<PopularFoods> {
                               );
                             },
                           ),
-                          SizedBox(width: 2.0),
+
+                          const SizedBox(width: 2.0),
+
+                          // Number Of Rating
                           Text(
-                            '(${popularfoods[index].numberofratings})',
+                            '(${foods[index].numberofratings})',
                             style: Theme.of(
                               context,
                             ).textTheme.bodyMedium!.copyWith(fontSize: 12),
                           ),
-                          Spacer(),
+                          const Spacer(),
+
+                          // Price
                           Text(
-                            '\$${popularfoods[index].price!.toStringAsFixed(2)}',
+                            '\$${foods[index].price!.toStringAsFixed(2)}',
                             style: Theme.of(
                               context,
                             ).textTheme.bodyMedium!.copyWith(
