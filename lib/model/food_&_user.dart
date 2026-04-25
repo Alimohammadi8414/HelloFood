@@ -59,7 +59,7 @@ class User extends HiveObject {
 List<Food> bestfoods = [
   Food(
     img: "assets/images/ic_best_food_1.jpeg",
-    name: 'Grilled Meat',
+    name: 'Mixed Fruits & Milk',
     price: 19.65,
     rate: 2.1,
     numberofratings: 100,
@@ -67,7 +67,7 @@ List<Food> bestfoods = [
   ),
   Food(
     img: 'assets/images/ic_best_food_2.jpeg',
-    name: 'Bulani',
+    name: 'Crab Soup',
     price: 51.5,
     rate: 4.2,
     numberofratings: 400,
@@ -75,7 +75,7 @@ List<Food> bestfoods = [
   ),
   Food(
     img: 'assets/images/ic_best_food_3.jpeg',
-    name: 'Ashak',
+    name: 'Grilled Beef, Vegetable',
     price: 13.80,
     rate: 3,
     numberofratings: 214,
@@ -83,7 +83,7 @@ List<Food> bestfoods = [
   ),
   Food(
     img: 'assets/images/ic_best_food_4.jpeg',
-    name: 'Daldah',
+    name: 'Ice Chocolate & Cream',
     price: 46.00,
     rate: 5,
     numberofratings: 142,
@@ -91,7 +91,7 @@ List<Food> bestfoods = [
   ),
   Food(
     img: 'assets/images/ic_best_food_5.jpeg',
-    name: 'Atashin',
+    name: 'Desserts',
     price: 14,
     rate: 4,
     numberofratings: 25,
@@ -99,7 +99,7 @@ List<Food> bestfoods = [
   ),
   Food(
     img: 'assets/images/ic_best_food_7.jpeg',
-    name: 'Sabzi Ghormah',
+    name: 'Sweat Dessert',
     price: 47.30,
     rate: 3.5,
     numberofratings: 112,
@@ -107,7 +107,7 @@ List<Food> bestfoods = [
   ),
   Food(
     img: 'assets/images/ic_best_food_8.jpeg',
-    name: 'Some Food',
+    name: 'Fried Chicken,Spaghetti',
     price: 64.0,
     rate: 1.5,
     numberofratings: 50,
@@ -115,7 +115,7 @@ List<Food> bestfoods = [
   ),
   Food(
     img: 'assets/images/ic_best_food_9.jpeg',
-    name: 'Manto',
+    name: 'Mixed Fruits, Ice Coffee',
     price: 34.10,
     rate: 4.8,
     numberofratings: 150,
@@ -123,7 +123,7 @@ List<Food> bestfoods = [
   ),
   Food(
     img: 'assets/images/ic_best_food_10.jpeg',
-    name: 'Hlal',
+    name: 'Broccoli Salad',
     price: 65.30,
     rate: 4.1,
     numberofratings: 65,
@@ -223,7 +223,7 @@ List<Food> popularfoods = [
   ),
   Food(
     img: 'assets/images/ic_best_food_8.jpeg',
-    name: 'fried Chicken,Spaghetti',
+    name: 'Fried Chicken,Spaghetti',
     price: 64.0,
     rate: 1.5,
     numberofratings: 50,

@@ -46,7 +46,7 @@ class _CartScreenState extends State<CartScreen> {
               : Padding(
                 padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
                 child: SingleChildScrollView(
-                  physics: PageScrollPhysics(),
+                  physics: ScrollPhysics(),
                   child: Column(
                     spacing: 6,
                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -55,7 +55,7 @@ class _CartScreenState extends State<CartScreen> {
                       FoodsList(),
                       PromoCodeTextField(),
                       OrderSummary(foodList: provider.cartbox),
-                      const SizedBox(height: 60),
+                      const SizedBox(height: 80),
                       // PlaceOrderBotton(),
                     ],
                   ),

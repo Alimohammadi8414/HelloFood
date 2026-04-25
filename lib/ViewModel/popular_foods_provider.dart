@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hellofood/main.dart';
 import 'package:hellofood/model/food_&_user.dart';
+import 'package:hellofood/view/theme.dart';
 import 'package:hive/hive.dart';
 
 var box = Hive.box<Food>('favorite_foods');
@@ -28,6 +29,9 @@ addMessage(Food fooditem, BuildContext context) {
       content: Text(
         textAlign: TextAlign.center,
         '${fooditem.name} was added to favorites',
+        style: Theme.of(
+          context,
+        ).textTheme.bodyMedium!.copyWith(color: AppColors.white),
       ),
     ),
   );

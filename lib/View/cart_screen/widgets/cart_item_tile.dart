@@ -35,7 +35,13 @@ class CartItemTile extends StatelessWidget {
       child: Row(
         children: [
           // Image
-          SizedBox(height: 90, width: 90, child: Image.asset(food.img!)),
+          Container(
+            height: 90,
+            width: 90,
+            decoration: BoxDecoration(shape: BoxShape.circle),
+            clipBehavior: Clip.antiAlias,
+            child: Image.asset(food.img!, fit: BoxFit.fitHeight),
+          ),
           const SizedBox(width: 25),
           Expanded(
             child: Column(
