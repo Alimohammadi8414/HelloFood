@@ -1,43 +1,27 @@
 import 'dart:core';
-
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
-import 'package:hellofood/main.dart';
 import 'package:hellofood/model/food_&_user.dart';
 import 'package:hellofood/view/theme.dart';
 import 'package:hive/hive.dart';
 
 Food food = Food();
+var font = 'assets/fonts/Roboto-Regular.ttf';
+var fontsize = 16.0;
 
-class AddToCartProvider extends ChangeNotifier {
+class CartProvider extends ChangeNotifier {
   var cartbox = Hive.box<Food>('cart_foods');
 
   // Add To HiveBox
   Future<void> addTocart(BuildContext context, Food food) async {
-    messengerKey.currentState!.showSnackBar(
-      SnackBar(
-        content: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "${food.name} ",
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                fontWeight: FontWeight.w700,
-                color: AppColors.white,
-              ),
-            ),
-            Text(
-              'was added to your cart',
-              style: Theme.of(
-                context,
-              ).textTheme.bodyMedium!.copyWith(color: AppColors.white),
-            ),
-          ],
-        ),
-        backgroundColor: AppColors.green,
-        duration: Duration(seconds: 2),
-        behavior: SnackBarBehavior.floating,
-        dismissDirection: DismissDirection.horizontal,
-      ),
+    await Fluttertoast.showToast(
+      msg: ' ${food.name} was added to your cart ',
+      backgroundColor: AppColors.green,
+      fontAsset: font,
+      fontSize: fontsize,
+      gravity: ToastGravity.BOTTOM,
+      toastLength: Toast.LENGTH_SHORT,
+      textColor: AppColors.white,
     );
     food.count++;
     await cartbox.put(food.name, food);
@@ -51,31 +35,14 @@ class AddToCartProvider extends ChangeNotifier {
     bool inCartScreen,
   ) async {
     if (!inCartScreen) {
-      messengerKey.currentState!.showSnackBar(
-        SnackBar(
-          content: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "${food.name} ",
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  fontWeight: FontWeight.w700,
-                  color: AppColors.white,
-                ),
-              ),
-              Text(
-                'was removed from your cart',
-                style: Theme.of(
-                  context,
-                ).textTheme.bodyMedium!.copyWith(color: AppColors.white),
-              ),
-            ],
-          ),
-          backgroundColor: AppColors.lightRed,
-          duration: Duration(seconds: 2),
-          behavior: SnackBarBehavior.floating,
-          dismissDirection: DismissDirection.horizontal,
-        ),
+      await Fluttertoast.showToast(
+        msg: ' ${food.name} was removed from your cart ',
+        backgroundColor: AppColors.lightRed,
+        fontAsset: font,
+        fontSize: fontsize,
+        gravity: ToastGravity.BOTTOM,
+        toastLength: Toast.LENGTH_SHORT,
+        textColor: AppColors.white,
       );
     }
     food.count = 0;
@@ -92,6 +59,7 @@ class AddToCartProvider extends ChangeNotifier {
     return total;
   }
 
+  // the number of orders  
   int orderCount() {
     var count = 0;
     for (var element in cartbox.values) {

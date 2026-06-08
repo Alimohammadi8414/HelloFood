@@ -33,7 +33,7 @@ class OrderSummary extends StatelessWidget {
                 ).textTheme.bodyMedium!.copyWith(fontSize: 18),
               ),
               Text(
-                "${context.watch<AddToCartProvider>().orderCount().toString()} ",
+                "${context.watch<CartProvider>().orderCount().toString()} ",
                 style: Theme.of(
                   context,
                 ).textTheme.bodyMedium!.copyWith(fontSize: 18),
@@ -82,7 +82,7 @@ class OrderSummary extends StatelessWidget {
             children: [
               Text('Final Price', style: Theme.of(context).textTheme.bodyLarge),
               Text(
-                '\$${context.watch<AddToCartProvider>().finalPrice().toStringAsFixed(2)}',
+                '\$${context.watch<CartProvider>().finalPrice().toStringAsFixed(2)}',
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
             ],

@@ -4,6 +4,7 @@ import 'package:hellofood/view/root_screen.dart';
 import 'package:hellofood/view/theme.dart';
 import 'package:hellofood/viewmodel/add_to_cart_provider.dart';
 import 'package:hellofood/viewmodel/popular_foods_provider.dart';
+import 'package:hellofood/viewmodel/sign_up_provider.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -23,7 +24,8 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => Popularfoodsprovider()),
-        ChangeNotifierProvider(create: (context) => AddToCartProvider()),
+        ChangeNotifierProvider(create: (context) => CartProvider()),
+        ChangeNotifierProvider(create: (context) => SignUpProvider()),
       ],
       child: const MyApp(),
     ),

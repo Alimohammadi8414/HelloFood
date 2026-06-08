@@ -29,7 +29,7 @@ class PlaceOrderBotton extends StatelessWidget {
                 ).textTheme.bodyLarge!.copyWith(color: AppColors.white),
               ),
               Text(
-                "${context.watch<AddToCartProvider>().finalPrice().toStringAsFixed(2)}\$",
+                "${context.watch<CartProvider>().finalPrice().toStringAsFixed(2)}\$",
                 style: Theme.of(
                   context,
                 ).textTheme.bodyLarge!.copyWith(color: AppColors.white),

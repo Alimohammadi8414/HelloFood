@@ -11,7 +11,7 @@ class FoodsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<AddToCartProvider>(
+    return Consumer<CartProvider>(
       builder: (context, value, child) {
         var cartbox = value.cartbox;
         var size = MediaQuery.sizeOf(context);

@@ -4,19 +4,19 @@ import 'package:hellofood/view/theme.dart';
 import 'package:hellofood/view/account_screen/signing_widgets/divider_widget.dart';
 import 'package:hellofood/view/account_screen/signing_widgets/login_option.dart';
 import 'package:hellofood/view/account_screen/signing_widgets/sign_button_widget.dart';
-import 'package:hellofood/view/account_screen/signing_widgets/signing_switch_text.dart';
 import 'package:hellofood/view/account_screen/utils/text_field_widget.dart';
+import 'package:hellofood/viewmodel/sign_up_provider.dart';
+import 'package:provider/provider.dart';
 
-// ignore: must_be_immutable
 class SignUpScreen extends StatefulWidget {
-  SignUpScreen({super.key});
-  bool haveAnAccount = true;
+  const SignUpScreen({super.key});
+
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-bool securePassword = false;
-bool secureConfirmPassword = false;
+var securePassword = true;
+var secureConfirmPassword = true;
 var nameController = TextEditingController();
 var lastNameController = TextEditingController();
 var phoneController = TextEditingController();
@@ -26,196 +26,202 @@ var formState = GlobalKey<FormState>();
 
 class _SignUpScreenState extends State<SignUpScreen> {
   @override
-  @override
   Widget build(BuildContext context) {
     var size = MediaQuery.sizeOf(context);
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.white,
       body: Padding(
         padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
         child: SingleChildScrollView(
-          child: Form(
-            key: formState,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                // Hello Food Logo
-                Image.asset(
-                  'assets/images/ic_food_express.png',
-                  width: 250,
-                  height: 165,
-                ),
-                const SizedBox(height: 40),
-                if (!widget.haveAnAccount)
-                  Row(
-                    spacing: 10,
-                    children: [
-                      // Name
-                      TextFormFieldWidget(
-                        hinttext: "First Name",
-                        obscure: false,
-                        prefixIcon: null,
-                        suffixIcon: null,
-                        width: size.width / 2 - 21,
-                        height: 75,
-                        controller: nameController,
-                        keybourdtype: TextInputType.name,
-                        inputFormatters: [],
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "Pleas enter you're name";
-                          }
-                          return null;
-                        },
-                      ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // Hello Food Logo
+              Image.asset(
+                'assets/images/ic_food_express.png',
+                width: 250,
+                height: 165,
+              ),
+              const SizedBox(height: 40),
+              Consumer<SignUpProvider>(
+                builder: (context, value, child) {
+                  return Form(
+                    key: formState,
+                    child: Column(
+                      children: [
+                        if (!value.havAccount())
+                          Row(
+                            spacing: 10,
+                            children: [
+                              // Name
+                              TextFormFieldWidget(
+                                textCapitalization: TextCapitalization.words,
+                                hinttext: "First Name",
+                                obscure: false,
+                                width: size.width / 2 - 21,
+                                height: 75,
+                                controller: nameController,
+                                keybourdtype: TextInputType.name,
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return "Pleas enter you're name";
+                                  }
+                                  return null;
+                                },
+                              ),
 
-                      //  Last Name
-                      TextFormFieldWidget(
-                        hinttext: 'Last Name',
-                        obscure: false,
-                        prefixIcon: null,
-                        suffixIcon: null,
-                        width: size.width / 2 - 21,
-                        height: 75,
-                        controller: lastNameController,
-                        keybourdtype: TextInputType.name,
-                        inputFormatters: [],
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "Pleas enter you're lastname";
-                          }
-                          return null;
-                        },
-                      ),
-                    ],
-                  ),
+                              //  Last Name
+                              TextFormFieldWidget(
+                                textCapitalization: TextCapitalization.words,
+                                hinttext: 'Last Name',
+                                obscure: false,
+                                width: size.width / 2 - 21,
+                                height: 75,
+                                controller: lastNameController,
+                                keybourdtype: TextInputType.name,
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return "Pleas enter you're lastname";
+                                  }
+                                  return null;
+                                },
+                              ),
+                            ],
+                          ),
 
-                // Phone Number
-                TextFormFieldWidget(
-                  hinttext: "Phone",
-                  obscure: false,
-                  prefixIcon: Icon(
-                    Icons.phone,
-                    color: AppColors.heavyGray.withValues(alpha: 0.7),
-                    size: 20,
-                  ),
-                  suffixIcon: null,
-                  width: size.width,
-                  height: 75,
-                  controller: phoneController,
-                  keybourdtype: TextInputType.phone,
-                  inputFormatters: [
-                    FilteringTextInputFormatter.digitsOnly,
-                    LengthLimitingTextInputFormatter(11),
-                  ],
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return "Pleas enter you're phone number";
-                    }
-                    return null;
-                  },
-                ),
+                        // Phone Number
+                        TextFormFieldWidget(
+                          textCapitalization: TextCapitalization.none,
+                          hinttext: "Phone",
+                          obscure: false,
+                          prefixIcon: Icon(
+                            Icons.phone,
+                            color: AppColors.heavyGray.withValues(alpha: 0.7),
+                            size: 20,
+                          ),
+                          width: size.width,
+                          height: 75,
+                          controller: phoneController,
+                          keybourdtype: TextInputType.phone,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                            LengthLimitingTextInputFormatter(11),
+                          ],
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Pleas enter you're phone number";
+                            } else if (value.length < 11) {
+                              return "Phone number is invalid";
+                            }
+                            return null;
+                          },
+                        ),
 
-                // Password
-                TextFormFieldWidget(
-                  hinttext: 'Password',
-                  obscure: securePassword,
-                  prefixIcon: Icon(
-                    Icons.lock_outline_rounded,
-                    color: AppColors.heavyGray.withValues(alpha: 0.7),
-                    size: 20,
-                  ),
-                  suffixIcon: IconButton(
-                    iconSize: 20,
-                    color: AppColors.heavyGray.withValues(alpha: 0.7),
-                    onPressed: () {
-                      setState(() {
-                        securePassword = !securePassword;
-                      });
-                    },
-                    icon:
-                        securePassword
-                            ? Icon(Icons.visibility)
-                            : Icon(Icons.visibility_off),
-                  ),
-                  width: size.width,
-                  height: 75,
-                  controller: passwordController,
-                  keybourdtype: TextInputType.visiblePassword,
-                  inputFormatters: [],
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return "Pleas enter you're password";
-                    }
-                    return null;
-                  },
-                ),
+                        // Password
+                        TextFormFieldWidget(
+                          textCapitalization: TextCapitalization.none,
+                          hinttext: 'Password',
+                          obscure: securePassword,
+                          prefixIcon: Icon(
+                            Icons.lock_outline_rounded,
+                            color: AppColors.heavyGray.withValues(alpha: 0.7),
+                            size: 20,
+                          ),
+                          suffixIcon: IconButton(
+                            iconSize: 20,
+                            color: AppColors.heavyGray.withValues(alpha: 0.7),
+                            onPressed: () {
+                              setState(() {
+                                securePassword = !securePassword;
+                              });
+                            },
+                            icon:
+                                securePassword
+                                    ? Icon(Icons.visibility)
+                                    : Icon(Icons.visibility_off),
+                          ),
+                          width: size.width,
+                          height: 75,
+                          controller: passwordController,
+                          keybourdtype: TextInputType.visiblePassword,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Pleas enter you're password";
+                            }
+                            return null;
+                          },
+                        ),
 
-                // Confirm Password
-                if (!widget.haveAnAccount)
-                  TextFormFieldWidget(
-                    hinttext: "Confirm Password",
-                    obscure: secureConfirmPassword,
-                    prefixIcon: Icon(
-                      Icons.lock_outline_rounded,
-                      color: AppColors.heavyGray.withValues(alpha: 0.7),
-                      size: 20,
+                        // Confirm Password
+                        if (!value.havAccount())
+                          TextFormFieldWidget(
+                            textCapitalization: TextCapitalization.none,
+                            hinttext: "Confirm Password",
+                            obscure: secureConfirmPassword,
+                            prefixIcon: Icon(
+                              Icons.lock_outline_rounded,
+                              color: AppColors.heavyGray.withValues(alpha: 0.7),
+                              size: 20,
+                            ),
+                            suffixIcon: IconButton(
+                              iconSize: 20,
+                              color: AppColors.heavyGray.withValues(alpha: 0.7),
+                              onPressed: () {
+                                setState(() {
+                                  secureConfirmPassword =
+                                      !secureConfirmPassword;
+                                });
+                              },
+                              icon:
+                                  secureConfirmPassword
+                                      ? Icon(Icons.visibility)
+                                      : Icon(Icons.visibility_off),
+                            ),
+                            width: size.width,
+                            height: 75,
+                            controller: confirmPasswordController,
+                            keybourdtype: TextInputType.visiblePassword,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Pleas confirm you're passwords";
+                              } else if (value != passwordController.text) {
+                                return "Password doesn't match";
+                              }
+                              return null;
+                            },
+                          ),
+                      ],
                     ),
-                    suffixIcon: IconButton(
-                      iconSize: 20,
-                      color: AppColors.heavyGray.withValues(alpha: 0.7),
-                      onPressed: () {
-                        setState(() {
-                          secureConfirmPassword = !secureConfirmPassword;
-                        });
-                      },
-                      icon:
-                          secureConfirmPassword
-                              ? Icon(Icons.visibility)
-                              : Icon(Icons.visibility_off),
-                    ),
-                    width: size.width,
-                    height: 75,
-                    controller: confirmPasswordController,
-                    keybourdtype: TextInputType.visiblePassword,
-                    inputFormatters: [],
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return "Pleas confirm you're passwords";
-                      }
-                      return null;
-                    },
-                  ),
+                  );
+                },
+              ),
 
-                const SizedBox(height: 35),
+              const SizedBox(height: 35),
 
-                // Sign  Button
-                SignButtonWidget(haveAnAccount: widget.haveAnAccount),
+              // Sign  Button
+              SignButtonWidget(),
 
-                const SizedBox(height: 20),
+              const SizedBox(height: 20),
 
-                // Divider
-                DividerWidget(),
-                const SizedBox(height: 20),
+              // Divider
+              DividerWidget(),
+              const SizedBox(height: 20),
 
-                // Other login Options
-                LoginOptions(),
+              // Other login Options
+              LoginOptions(),
 
-                widget.haveAnAccount
-                    ? SizedBox(height: 178)
-                    : SizedBox(height: 30),
+              // value.isSignedin()
+              //     ? SizedBox(height: 178)
+              //     : SizedBox(height: 30),
 
-                //  Switch to Sign in
-                SigningSwitchTextWidget(
-                  haveAnAccount: widget.haveAnAccount,
-                  ontap: () {
-                    setState(() {
-                      widget.haveAnAccount = !widget.haveAnAccount;
-                    });
-                  },
-                ),
-              ],
-            ),
+              //  Switch to Sign in
+              // SigningSwitchTextWidget(
+              //   haveAnAccount: value.isSignedin(),
+              //   ontap: () {
+              //     value.havAccount();
+              //   },
+              // ),
+            ],
           ),
         ),
       ),

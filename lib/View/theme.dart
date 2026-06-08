@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  static const lightRed = Color.fromARGB(255, 252, 32, 24); // قرمز
+  static const lightRed = Color(0xFFFC2018); // قرمز
   static const gray = Color(0xFFBBBBBB); // خاکستری
   static const white = Color(0xFFFFFFFF); // سفید
   static const heavyGray = Color(0xFF202124); // خاکستری تیره
   static const backgroundWhit = Color(0xFFF9F9F9); // پس‌زمینه روشن
   static const green = Color(0xFF4CAF50); // سبز
+  static const darkGray = Color(0xFF333333);  // خاکستری
 }
 
 final ThemeData apptheme = ThemeData(

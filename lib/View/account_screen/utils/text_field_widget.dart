@@ -4,27 +4,29 @@ import 'package:hellofood/view/theme.dart';
 
 class TextFormFieldWidget extends StatelessWidget {
   const TextFormFieldWidget({
-    required this.hinttext,
     required this.obscure,
-    required this.prefixIcon,
-    required this.suffixIcon,
     required this.width,
     required this.height,
-    required this.controller,
-    required this.inputFormatters,
-    required this.keybourdtype,
-    required this.validator,
+    required this.textCapitalization,
+    this.hinttext,
+    this.prefixIcon,
+    this.suffixIcon,
+    this.controller,
+    this.inputFormatters,
+    this.keybourdtype,
+    this.validator,
     super.key,
   });
-  final String hinttext;
+  final TextCapitalization textCapitalization;
+  final String? hinttext;
   final bool obscure;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
-  final double width;
-  final double height;
-  final TextEditingController controller;
-  final TextInputType keybourdtype;
-  final List<TextInputFormatter> inputFormatters;
+  final double? width;
+  final double? height;
+  final TextEditingController? controller;
+  final TextInputType? keybourdtype;
+  final List<TextInputFormatter>? inputFormatters;
   final String? Function(String? value)? validator;
 
   @override
@@ -33,6 +35,7 @@ class TextFormFieldWidget extends StatelessWidget {
       height: height,
       width: width,
       child: TextFormField(
+        textCapitalization: textCapitalization,
         validator: validator,
         keyboardType: keybourdtype,
         inputFormatters: inputFormatters,

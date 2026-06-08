@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hellofood/view/theme.dart';
+import 'package:hellofood/viewmodel/sign_up_provider.dart';
+import 'package:pinput/pinput.dart';
+import 'package:provider/provider.dart';
 
 class VerificationScreen extends StatefulWidget {
-  VerificationScreen({required this.haveAnAccount, super.key});
-  bool haveAnAccount;
+  const VerificationScreen({super.key});
 
   @override
   State<VerificationScreen> createState() => _VerificationScreenState();
 }
 
-TextEditingController firstDigit = TextEditingController();
-TextEditingController secondDigit = TextEditingController();
-TextEditingController thirdDigit = TextEditingController();
-TextEditingController fourthDigit = TextEditingController();
+var pincontroller = TextEditingController();
 
 class _VerificationScreenState extends State<VerificationScreen> {
+  @override
+  // void dispose() {
+  //   pincontroller.dispose();
+  //   super.dispose();
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +37,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                 context,
               ).textTheme.bodyLarge!.copyWith(fontSize: 25),
             ),
-            const SizedBox(height: 35),
+            const SizedBox(height: 15),
 
             Row(
               children: [
@@ -49,19 +54,26 @@ class _VerificationScreenState extends State<VerificationScreen> {
                 ),
               ],
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 45),
 
-            // CodeInputTextFielad
-            Form(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-
-                children: [
-                  CodeInputTextFielad(texController: firstDigit),
-                  CodeInputTextFielad(texController: secondDigit),
-                  CodeInputTextFielad(texController: thirdDigit),
-                  CodeInputTextFielad(texController: fourthDigit),
-                ],
+            // verification code input
+            Center(
+              child: Pinput(
+                length: 4,
+                keyboardType: TextInputType.number,
+                defaultPinTheme: PinTheme(
+                  height: 70,
+                  width: 85,
+                  decoration: BoxDecoration(
+                    border: BoxBorder.all(),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  textStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    fontSize: 24,
+                    color: AppColors.heavyGray,
+                  ),
+                ),
+                controller: pincontroller,
               ),
             ),
             SizedBox(height: 50),
@@ -80,38 +92,8 @@ class _VerificationScreenState extends State<VerificationScreen> {
               ),
               child: InkWell(
                 borderRadius: BorderRadius.circular(10),
-                onTap: () {
-                  setState(() {
-                    if (firstDigit.text.isEmpty ||
-                        secondDigit.text.isEmpty ||
-                        thirdDigit.text.isEmpty ||
-                        fourthDigit.text.isEmpty) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadiusGeometry.circular(10),
-                          ),
-                          backgroundColor: AppColors.lightRed,
-                          behavior: SnackBarBehavior.floating,
-                          width: 250,
-                          dismissDirection: DismissDirection.horizontal,
-                          content: Text(
-                            textAlign: TextAlign.center,
-                            'Code is not valid',
-                            style: Theme.of(context).textTheme.bodyMedium!
-                                .copyWith(color: AppColors.white),
-                          ),
-                        ),
-                      );
-                    } else {
-                      widget.haveAnAccount = true;
-                      firstDigit.clear();
-                      secondDigit.clear();
-                      thirdDigit.clear();
-                      fourthDigit.clear();
-                      Navigator.pop(context);
-                    }
-                  });
+                onTap: () async {
+                  await context.read<SignUpProvider>().verify(context);
                 },
                 child: Center(
                   child: Text(
@@ -157,8 +139,13 @@ class _VerificationScreenState extends State<VerificationScreen> {
 }
 
 class CodeInputTextFielad extends StatelessWidget {
-  const CodeInputTextFielad({required this.texController, super.key});
+  const CodeInputTextFielad({
+    required this.texController,
+    this.focusNode,
+    super.key,
+  });
   final TextEditingController texController;
+  final FocusNode? focusNode;
 
   @override
   Widget build(BuildContext context) {

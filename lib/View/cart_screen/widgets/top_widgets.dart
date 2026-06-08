@@ -37,7 +37,7 @@ class TopWidgets extends StatelessWidget {
                     ),
                     TextButton(
                       onPressed: () async {
-                        await context.read<AddToCartProvider>().deletAll();
+                        await context.read<CartProvider>().deletAll();
 
                         if (context.mounted) {
                           Navigator.pop(context);

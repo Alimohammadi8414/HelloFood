@@ -83,7 +83,7 @@ class _PopularFoodsState extends State<PopularFoods> {
                               ),
                             ),
                             // Add Icon
-                            Consumer<AddToCartProvider>(
+                            Consumer<CartProvider>(
                               builder: (context, value, child) {
                                 return Positioned(
                                   top: -2,

@@ -18,7 +18,7 @@ class CartScreen extends StatefulWidget {
 class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
-    var provider = context.watch<AddToCartProvider>();
+    var provider = context.watch<CartProvider>();
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton:

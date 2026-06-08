@@ -14,7 +14,7 @@ class AddButtonWidget extends StatelessWidget {
     return SizedBox(
       height: 43,
       width: 195,
-      child: Consumer<AddToCartProvider>(
+      child: Consumer<CartProvider>(
         builder: (context, value, child) {
           if (value.cartbox.containsKey(food.name)) {
             return ElevatedButton(

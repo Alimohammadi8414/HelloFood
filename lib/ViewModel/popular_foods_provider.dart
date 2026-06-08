@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hellofood/main.dart';
 import 'package:hellofood/model/food_&_user.dart';
 import 'package:hellofood/view/theme.dart';
 import 'package:hive/hive.dart';
 
 var box = Hive.box<Food>('favorite_foods');
+var font = 'assets/fonts/Roboto-Regular.ttf';
+var fontsize = 16.0;
 
 class Popularfoodsprovider extends ChangeNotifier {
   Future<void> addOrRemove(Food food, BuildContext context) async {
@@ -20,35 +23,14 @@ class Popularfoodsprovider extends ChangeNotifier {
 }
 
 // Add message when the food item is added to favorites
-addMessage(Food fooditem, BuildContext context) {
-  messengerKey.currentState?.showSnackBar(
-    SnackBar(
-      duration: Duration(seconds: 2),
-      behavior: SnackBarBehavior.floating,
-      dismissDirection: DismissDirection.horizontal,
-      content: Text(
-        textAlign: TextAlign.center,
-        '${fooditem.name} was added to favorites',
-        style: Theme.of(
-          context,
-        ).textTheme.bodyMedium!.copyWith(color: AppColors.white),
-      ),
-    ),
+Future<void> addMessage(Food food, BuildContext context) async {
+  await Fluttertoast.showToast(
+    msg: ' ${food.name} was added to your cart ',
+    backgroundColor: AppColors.darkGray,
+    fontAsset: font,
+    fontSize: fontsize,
+    gravity: ToastGravity.BOTTOM,
+    toastLength: Toast.LENGTH_SHORT,
+    textColor: AppColors.white,
   );
 }
-
-// Remove message when the food item is removed from favorites
-// removeMessage(Food fooditem, BuildContext context) {
-//   messengerKey.currentState?.showSnackBar(
-//     SnackBar(
-//       hitTestBehavior: HitTestBehavior.opaque,
-//       duration: Duration(seconds: 2),
-//       behavior: SnackBarBehavior.floating,
-//       dismissDirection: DismissDirection.horizontal,
-//       content: Text(
-//         textAlign: TextAlign.center,
-//         '${fooditem.name} is removed from favorites',
-//       ),
-//     ),
-//   );
-// }

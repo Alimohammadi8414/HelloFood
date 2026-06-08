@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:hellofood/model/food_&_user.dart';
 import 'package:hellofood/view/theme.dart';
 import 'package:hellofood/view/account_screen/signing_screen.dart';
-import 'package:hellofood/view/account_screen/verification_screen.dart';
 import 'package:hellofood/viewmodel/sign_up_provider.dart';
-
-var user = User();
-var providr = SignupProvider();
+import 'package:provider/provider.dart';
 
 class SignButtonWidget extends StatelessWidget {
-  SignButtonWidget({required this.haveAnAccount, super.key});
-  bool haveAnAccount;
+  const SignButtonWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
+    var provider = context.watch<SignUpProvider>();
     return Ink(
       height: 55,
       width: MediaQuery.sizeOf(context).width,
@@ -26,29 +23,24 @@ class SignButtonWidget extends StatelessWidget {
       ),
       child: InkWell(
         borderRadius: BorderRadius.circular(10),
-        onTap: () {
+        onTap: () async {
           if (formState.currentState!.validate()) {
-            providr.signUp(
-              name: nameController.text,
-              lastName: lastNameController.text,
-              phone: int.tryParse(phoneController.text)!,
-              password: passwordController.text,
-            );
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) {
-                  return VerificationScreen(haveAnAccount: haveAnAccount);
-                },
-              ),
-            );
+            if (!provider.havAccount()) {
+              await provider.signUp(
+                name: nameController.text,
+                lastName: lastNameController.text,
+                phone: int.tryParse(phoneController.text)!,
+                password: passwordController.text,
+                context,
+              );
+            } else {
+              await provider.signIn(context);
+            }
           }
-
-          haveAnAccount = true;
         },
         child: Center(
           child:
-              haveAnAccount
+              provider.havAccount()
                   ? Text(
                     'SIGN IN',
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
