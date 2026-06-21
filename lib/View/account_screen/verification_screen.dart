@@ -12,14 +12,14 @@ class VerificationScreen extends StatefulWidget {
   State<VerificationScreen> createState() => _VerificationScreenState();
 }
 
-var pincontroller = TextEditingController();
-
 class _VerificationScreenState extends State<VerificationScreen> {
+  final TextEditingController pinPutController = TextEditingController();
+
   @override
-  // void dispose() {
-  //   pincontroller.dispose();
-  //   super.dispose();
-  // }
+  void dispose() {
+    pinPutController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +73,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                     color: AppColors.heavyGray,
                   ),
                 ),
-                controller: pincontroller,
+                controller: pinPutController,
               ),
             ),
             SizedBox(height: 50),
@@ -93,7 +93,10 @@ class _VerificationScreenState extends State<VerificationScreen> {
               child: InkWell(
                 borderRadius: BorderRadius.circular(10),
                 onTap: () async {
-                  await context.read<SignUpProvider>().verify(context);
+                  await context.read<SignUpProvider>().verify(
+                    context,
+                    pinPutController,
+                  );
                 },
                 child: Center(
                   child: Text(

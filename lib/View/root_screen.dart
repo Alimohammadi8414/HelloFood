@@ -3,6 +3,8 @@ import 'package:hellofood/view/account_screen/signing_screen.dart';
 import 'package:hellofood/view/cart_screen/cart_screen.dart';
 import 'package:hellofood/view/home/home_screen.dart';
 import 'package:hellofood/view/near_by_screen/nearby_screen.dart';
+import 'package:hellofood/viewmodel/sign_up_provider.dart';
+import 'package:provider/provider.dart';
 
 class RootScreen extends StatefulWidget {
   const RootScreen({super.key});
@@ -11,20 +13,19 @@ class RootScreen extends StatefulWidget {
   State<RootScreen> createState() => _RootScreenState();
 }
 
-int selectedindex = 0;
-
 class _RootScreenState extends State<RootScreen> {
+  int selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         showSelectedLabels: true,
         showUnselectedLabels: false,
-        currentIndex: selectedindex,
+        currentIndex: selectedIndex,
         type: BottomNavigationBarType.fixed,
         onTap: (value) {
           setState(() {
-            selectedindex = value;
+            selectedIndex = value;
           });
         },
         items: [
@@ -41,7 +42,7 @@ class _RootScreenState extends State<RootScreen> {
         ],
       ),
       body: IndexedStack(
-        index: selectedindex,
+        index: selectedIndex,
         children: [HomeScreen(), NearbyScreen(), CartScreen(), SignUpScreen()],
       ),
     );

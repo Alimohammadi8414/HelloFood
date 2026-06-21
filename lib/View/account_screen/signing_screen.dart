@@ -17,14 +17,25 @@ class SignUpScreen extends StatefulWidget {
 
 var securePassword = true;
 var secureConfirmPassword = true;
-var nameController = TextEditingController();
-var lastNameController = TextEditingController();
-var phoneController = TextEditingController();
-var passwordController = TextEditingController();
-var confirmPasswordController = TextEditingController();
-var formState = GlobalKey<FormState>();
+var formKey = GlobalKey<FormState>();
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  final nameController = TextEditingController();
+  final lastNameController = TextEditingController();
+  final phoneController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    lastNameController.dispose();
+    phoneController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.sizeOf(context);
@@ -46,10 +57,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
               Consumer<SignUpProvider>(
                 builder: (context, value, child) {
                   return Form(
-                    key: formState,
+                    key: formKey,
                     child: Column(
                       children: [
-                        if (!value.havAccount())
+                        if (!value.haveAccount())
                           Row(
                             spacing: 10,
                             children: [
@@ -63,7 +74,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 controller: nameController,
                                 keybourdtype: TextInputType.name,
                                 validator: (value) {
-                                  if (value!.isEmpty) {
+                                  if (value!.trim().isEmpty) {
                                     return "Pleas enter you're name";
                                   }
                                   return null;
@@ -80,7 +91,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 controller: lastNameController,
                                 keybourdtype: TextInputType.name,
                                 validator: (value) {
-                                  if (value!.isEmpty) {
+                                  if (value!.trim().isEmpty) {
                                     return "Pleas enter you're lastname";
                                   }
                                   return null;
@@ -108,7 +119,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             LengthLimitingTextInputFormatter(11),
                           ],
                           validator: (value) {
-                            if (value!.isEmpty) {
+                            if (value!.trim().isEmpty) {
                               return "Pleas enter you're phone number";
                             } else if (value.length < 11) {
                               return "Phone number is invalid";
@@ -145,7 +156,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           controller: passwordController,
                           keybourdtype: TextInputType.visiblePassword,
                           validator: (value) {
-                            if (value!.isEmpty) {
+                            if (value!.trim().isEmpty) {
                               return "Pleas enter you're password";
                             }
                             return null;
@@ -153,7 +164,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
 
                         // Confirm Password
-                        if (!value.havAccount())
+                        if (!value.haveAccount())
                           TextFormFieldWidget(
                             textCapitalization: TextCapitalization.none,
                             hinttext: "Confirm Password",
@@ -182,7 +193,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             controller: confirmPasswordController,
                             keybourdtype: TextInputType.visiblePassword,
                             validator: (value) {
-                              if (value!.isEmpty) {
+                              if (value!.trim().isEmpty) {
                                 return "Pleas confirm you're passwords";
                               } else if (value != passwordController.text) {
                                 return "Password doesn't match";
@@ -198,8 +209,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
               const SizedBox(height: 35),
 
-              // Sign  Button
-              SignButtonWidget(),
+              // Sign Button
+              SignButtonWidget(
+                nameController: nameController,
+                lastNameController: lastNameController,
+                phoneController: phoneController,
+                passwordController: passwordController,
+                confirmPasswordController: confirmPasswordController,
+              ),
 
               const SizedBox(height: 20),
 
@@ -210,13 +227,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
               // Other login Options
               LoginOptions(),
 
-              // value.isSignedin()
+              // value.haveAccount()
               //     ? SizedBox(height: 178)
               //     : SizedBox(height: 30),
 
               //  Switch to Sign in
               // SigningSwitchTextWidget(
-              //   haveAnAccount: value.isSignedin(),
+              //   haveAnAccount: value.haveAccount(),
               //   ontap: () {
               //     value.havAccount();
               //   },

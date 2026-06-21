@@ -1,3 +1,6 @@
+
+// ignore_for_file: file_names
+
 import 'package:hive/hive.dart';
 
 part 'food_&_user.g.dart';

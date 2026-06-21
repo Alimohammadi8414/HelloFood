@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hellofood/model/food_&_user.dart';
 import 'package:hellofood/view/account_screen/account_screen.dart';
-import 'package:hellofood/view/account_screen/signing_screen.dart';
 import 'package:hellofood/view/account_screen/verification_screen.dart';
+import 'package:hellofood/view/root_screen.dart';
 import 'package:hellofood/view/theme.dart';
 import 'package:hive/hive.dart';
 
@@ -12,6 +12,7 @@ var fontsize = 16.0;
 
 class SignUpProvider extends ChangeNotifier {
   var box = Hive.box<User>('User');
+  int currentIndex = 0;
 
   Future<void> signUp(
     BuildContext context, {
@@ -25,7 +26,7 @@ class SignUpProvider extends ChangeNotifier {
     );
     if (context.mounted) {
       Focus.of(context).unfocus();
-      Navigator.push(
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(
           builder: (context) {
@@ -34,21 +35,18 @@ class SignUpProvider extends ChangeNotifier {
         ),
       );
     }
-    nameController.clear();
-    lastNameController.clear();
-    phoneController.clear();
-    passwordController.clear();
-    confirmPasswordController.clear();
     notifyListeners();
   }
 
-  Future<void> signIn(BuildContext context) async {
-    if (box.values.first.phone == int.tryParse(phoneController.text) &&
-        box.values.first.password == passwordController.text) {
-      phoneController.clear();
-      passwordController.clear();
+  Future<void> signIn(
+    BuildContext context, {
+    required String phoneController,
+    required String passwordController,
+  }) async {
+    if (box.values.first.phone == int.tryParse(phoneController) &&
+        box.values.first.password == passwordController) {
       Focus.of(context).unfocus();
-      Navigator.push(
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(
           builder: (context) {
@@ -70,14 +68,7 @@ class SignUpProvider extends ChangeNotifier {
     }
   }
 
-  bool isSignedin() {
-    if (box.isNotEmpty) {
-      return true;
-    }
-    return false;
-  }
-
-  bool havAccount() {
+  bool haveAccount() {
     if (box.isNotEmpty) {
       return true;
     }
@@ -87,13 +78,19 @@ class SignUpProvider extends ChangeNotifier {
   Future<void> clear(BuildContext context) async {
     await box.clear();
     if (context.mounted) {
-      Navigator.pop(context);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => RootScreen()),
+      );
     }
     notifyListeners();
   }
 
-  Future<void> verify(BuildContext context) async {
-    if (pincontroller.text.isEmpty) {
+  Future<void> verify(
+    BuildContext context,
+    TextEditingController controller,
+  ) async {
+    if (controller.text.isEmpty) {
       await Fluttertoast.showToast(
         msg: 'Code is not valid',
         fontAsset: font,
@@ -104,7 +101,6 @@ class SignUpProvider extends ChangeNotifier {
         textColor: AppColors.white,
       );
     } else {
-      pincontroller.clear();
       await Fluttertoast.showToast(
         msg: "You're signed up successfully",
         toastLength: Toast.LENGTH_SHORT,
@@ -115,7 +111,10 @@ class SignUpProvider extends ChangeNotifier {
         fontSize: fontsize,
       );
       if (context.mounted) {
-        Navigator.pop(context);
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => RootScreen()),
+        );
       }
     }
   }

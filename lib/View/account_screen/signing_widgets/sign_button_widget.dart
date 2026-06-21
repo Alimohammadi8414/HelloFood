@@ -5,8 +5,20 @@ import 'package:hellofood/viewmodel/sign_up_provider.dart';
 import 'package:provider/provider.dart';
 
 class SignButtonWidget extends StatelessWidget {
-  const SignButtonWidget({super.key});
+  final TextEditingController nameController;
+  final TextEditingController lastNameController;
+  final TextEditingController passwordController;
+  final TextEditingController phoneController;
+  final TextEditingController confirmPasswordController;
 
+  const SignButtonWidget({
+    required this.nameController,
+    required this.lastNameController,
+    required this.phoneController,
+    required this.passwordController,
+    required this.confirmPasswordController,
+    super.key,
+  });
   @override
   Widget build(BuildContext context) {
     var provider = context.watch<SignUpProvider>();
@@ -24,8 +36,8 @@ class SignButtonWidget extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(10),
         onTap: () async {
-          if (formState.currentState!.validate()) {
-            if (!provider.havAccount()) {
+          if (formKey.currentState!.validate()) {
+            if (!provider.haveAccount()) {
               await provider.signUp(
                 name: nameController.text,
                 lastName: lastNameController.text,
@@ -34,13 +46,17 @@ class SignButtonWidget extends StatelessWidget {
                 context,
               );
             } else {
-              await provider.signIn(context);
+              await provider.signIn(
+                context,
+                passwordController: passwordController.text,
+                phoneController: phoneController.text,
+              );
             }
           }
         },
         child: Center(
           child:
-              provider.havAccount()
+              provider.haveAccount()
                   ? Text(
                     'SIGN IN',
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(

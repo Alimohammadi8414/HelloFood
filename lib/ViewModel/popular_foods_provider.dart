@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:hellofood/main.dart';
 import 'package:hellofood/model/food_&_user.dart';
 import 'package:hellofood/view/theme.dart';
 import 'package:hive/hive.dart';
@@ -15,7 +14,7 @@ class Popularfoodsprovider extends ChangeNotifier {
     if (box.containsKey(food.name)) {
       await box.delete(food.name);
     } else {
-      addMessage(food, context);
+      await addMessage(food, context);
       await box.put(food.name, newFood);
     }
     notifyListeners();
