@@ -7,12 +7,11 @@ import 'package:hellofood/view/root_screen.dart';
 import 'package:hellofood/view/theme.dart';
 import 'package:hive/hive.dart';
 
-var font = 'assets/fonts/Roboto-Regular.ttf';
-var fontsize = 16.0;
+const String font = 'assets/fonts/Roboto-Regular.ttf';
+const double fontsize = 16.0;
 
 class SignUpProvider extends ChangeNotifier {
   var box = Hive.box<User>('User');
-  int currentIndex = 0;
 
   Future<void> signUp(
     BuildContext context, {
@@ -25,8 +24,10 @@ class SignUpProvider extends ChangeNotifier {
       User(name: name, lastName: lastName, phone: phone, password: password),
     );
     if (context.mounted) {
-      Focus.of(context).unfocus();
-      Navigator.pushReplacement(
+      if (FocusScope.of(context).hasFocus) {
+        FocusScope.of(context).unfocus();
+      }
+      await Navigator.pushReplacement(
         context,
         MaterialPageRoute(
           builder: (context) {
@@ -46,7 +47,7 @@ class SignUpProvider extends ChangeNotifier {
     if (box.values.first.phone == int.tryParse(phoneController) &&
         box.values.first.password == passwordController) {
       Focus.of(context).unfocus();
-      Navigator.pushReplacement(
+      await Navigator.pushReplacement(
         context,
         MaterialPageRoute(
           builder: (context) {
@@ -111,9 +112,9 @@ class SignUpProvider extends ChangeNotifier {
         fontSize: fontsize,
       );
       if (context.mounted) {
-        Navigator.pushReplacement(
+        await Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => RootScreen()),
+          MaterialPageRoute(builder: (context) => AccountScreen()),
         );
       }
     }

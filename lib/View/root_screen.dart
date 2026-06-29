@@ -3,8 +3,6 @@ import 'package:hellofood/view/account_screen/signing_screen.dart';
 import 'package:hellofood/view/cart_screen/cart_screen.dart';
 import 'package:hellofood/view/home/home_screen.dart';
 import 'package:hellofood/view/near_by_screen/nearby_screen.dart';
-import 'package:hellofood/viewmodel/sign_up_provider.dart';
-import 'package:provider/provider.dart';
 
 class RootScreen extends StatefulWidget {
   const RootScreen({super.key});
@@ -14,7 +12,7 @@ class RootScreen extends StatefulWidget {
 }
 
 class _RootScreenState extends State<RootScreen> {
-  int selectedIndex = 0;
+  var selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

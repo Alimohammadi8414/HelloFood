@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:hellofood/view/theme.dart';
 import 'package:hellofood/viewmodel/sign_up_provider.dart';
 import 'package:pinput/pinput.dart';
@@ -135,61 +134,6 @@ class _VerificationScreenState extends State<VerificationScreen> {
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class CodeInputTextFielad extends StatelessWidget {
-  const CodeInputTextFielad({
-    required this.texController,
-    this.focusNode,
-    super.key,
-  });
-  final TextEditingController texController;
-  final FocusNode? focusNode;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 70,
-      width: 85,
-      child: TextFormField(
-        minLines: null,
-        maxLines: null,
-        expands: true,
-        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-          fontSize: 24,
-          color: AppColors.heavyGray,
-        ),
-        controller: texController,
-        textInputAction: TextInputAction.next,
-        inputFormatters: [
-          LengthLimitingTextInputFormatter(1),
-          FilteringTextInputFormatter.digitsOnly,
-        ],
-        keyboardType: TextInputType.number,
-        decoration: InputDecoration(
-          contentPadding: EdgeInsets.symmetric(horizontal: 32),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide.none,
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide.none,
-          ),
-          errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(color: AppColors.lightRed),
-          ),
-          focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide.none,
-          ),
-          filled: true,
-          fillColor: AppColors.gray.withValues(alpha: 0.2),
         ),
       ),
     );

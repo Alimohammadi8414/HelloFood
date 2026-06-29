@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hellofood/model/food_&_user.dart';
-import 'package:hellofood/view/root_screen.dart';
+import 'package:hellofood/view/account_screen/account_screen.dart';
 import 'package:hellofood/view/theme.dart';
 import 'package:hellofood/viewmodel/add_to_cart_provider.dart';
 import 'package:hellofood/viewmodel/popular_foods_provider.dart';
 import 'package:hellofood/viewmodel/sign_up_provider.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
-
-GlobalKey<ScaffoldMessengerState> messengerKey =
-    GlobalKey<ScaffoldMessengerState>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,10 +35,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      scaffoldMessengerKey: messengerKey,
       theme: apptheme,
       debugShowCheckedModeBanner: false,
-      home: RootScreen(),
+      home: AccountScreen(),
     );
   }
 }

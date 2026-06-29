@@ -37,7 +37,10 @@ class _CartScreenState extends State<CartScreen> {
                 ),
                 extendedTextStyle: Theme.of(context).textTheme.bodyLarge,
               ),
-      appBar: AppBar(title: Text('Cart Items'), centerTitle: true),
+      appBar: AppBar(
+        title: Text('Cart Items', style: Theme.of(context).textTheme.bodyLarge),
+        centerTitle: true,
+      ),
       body:
           // When your Cart is empty
           provider.cartbox.isEmpty
